@@ -12,7 +12,7 @@ export default {
         secondary: "#ff9f1c", // lighter orange, for hover effects or secondary buttons
         neutral: "#ffffff", // pure white, for sections or card backgrounds
         success: "#35BD3A",
-        error: "#FF7A7A",
+        error: "#e11d48",
       },
     },
   },

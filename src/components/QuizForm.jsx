@@ -69,18 +69,18 @@
 
 export default function QuizForm() {
   return (
-    <form className="bg-background flex flex-col gap-7 rounded-xl p-5 shadow-md">
+    <form className="flex flex-col gap-7 rounded-xl border border-primary bg-neutral p-5 shadow-md md:py-7">
       {/* Username Field */}
       <div className="flex items-center justify-between gap-2">
         <label
-          className="text-primary w-1/2 text-lg font-semibold sm:text-xl"
+          className="w-1/2 text-lg font-semibold text-primary sm:text-xl"
           htmlFor="username"
         >
           Username
         </label>
         <input
           id="username"
-          className="border-primary text-text focus:border-primary focus:ring-primary w-1/2 rounded-2xl px-2 py-1 outline-none focus:outline-1 focus:ring-1 focus:ring-inset sm:p-2"
+          className="w-1/2 rounded-2xl border-primary px-2 py-1 text-text outline-none focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
           type="text"
           placeholder="Enter username"
         />
@@ -89,14 +89,14 @@ export default function QuizForm() {
       {/* Number of Questions Field */}
       <div className="flex items-center justify-between gap-2">
         <label
-          className="text-primary w-1/2 text-lg font-semibold sm:text-xl"
+          className="w-1/2 text-lg font-semibold text-primary sm:text-xl"
           htmlFor="questions"
         >
           Number of Questions
         </label>
         <input
           id="questions"
-          className="border-primary text-text focus:border-primary focus:ring-primary w-1/2 rounded-2xl px-2 py-1 outline-none focus:outline-1 focus:ring-1 focus:ring-inset sm:p-2"
+          className="w-1/2 rounded-2xl border-primary px-2 py-1 text-text outline-none focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
           type="text"
           placeholder="Enter number"
         />
@@ -105,14 +105,14 @@ export default function QuizForm() {
       {/* Category Field */}
       <div className="flex items-center justify-between gap-2">
         <label
-          className="text-primary w-1/2 text-lg font-semibold sm:text-xl"
+          className="w-1/2 text-lg font-semibold text-primary sm:text-xl"
           htmlFor="category"
         >
           Category
         </label>
         <select
           id="category"
-          className="border-primary text-text focus:border-primary focus:ring-primary w-1/2 rounded-2xl px-2 py-1 outline-none focus:outline-1 focus:ring-1 focus:ring-inset sm:p-2"
+          className="w-1/2 rounded-2xl border-primary px-2 py-1 text-text outline-none focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
         >
           <option value="science">Science</option>
           <option value="history">History</option>
@@ -123,14 +123,14 @@ export default function QuizForm() {
       {/* Difficulty Field */}
       <div className="flex items-center justify-between gap-2">
         <label
-          className="text-primary w-1/2 text-lg font-semibold sm:text-xl"
+          className="w-1/2 text-lg font-semibold text-primary sm:text-xl"
           htmlFor="difficulty"
         >
           Difficulty
         </label>
         <select
           id="difficulty"
-          className="border-primary text-text focus:border-primary focus:ring-primary w-1/2 rounded-2xl px-2 py-1 outline-none focus:outline-1 focus:ring-1 focus:ring-inset sm:p-2"
+          className="w-1/2 rounded-2xl border-primary px-2 py-1 text-text outline-none focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
         >
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
@@ -139,7 +139,7 @@ export default function QuizForm() {
       </div>
 
       {/* Submit Button */}
-      <button className="bg-primary text-neutral hover:bg-secondary focus:ring-primary mt-3 w-full rounded-full p-2 text-xl font-bold hover:shadow-[0_2px_5px_rgba(0,0,0,0.3)] focus:outline-none focus:ring-2 focus:ring-offset-2">
+      <button className="mt-3 w-full rounded-full bg-primary p-2 text-xl font-bold text-neutral hover:bg-secondary hover:shadow-[0_2px_5px_rgba(0,0,0,0.3)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
         Start Quiz
       </button>
     </form>

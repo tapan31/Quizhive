@@ -1,4 +1,4 @@
-import NavigationButton from "../components/NavigationButton";
+import NavigationButton from "../components/Button";
 import OptionButton from "../components/OptionButton";
 import Options from "../components/Options";
 import Progress from "../components/Progress";
