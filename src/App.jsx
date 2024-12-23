@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Quiz from "./pages/Quiz";
 import Result from "./pages/Result";
 import AppLayout from "./layouts/AppLayout";
+import QuizProvider from "./contexts/QuizContext";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QuizProvider>
+      <RouterProvider router={router} />
+    </QuizProvider>
+  );
 }
 
 export default App;

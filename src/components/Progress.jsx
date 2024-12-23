@@ -1,16 +1,23 @@
+import { useQuizContext } from "../contexts/QuizContext";
+
 export default function Progress() {
+  const { score, numQuestions, maxPossibleScore, index, answers } =
+    useQuizContext();
+
   return (
     <div className="mb-4 grid w-full grid-cols-2 items-center">
       <progress
         className="col-span-2 mb-1 h-3 w-full"
-        max={100}
-        value={30}
+        max={numQuestions}
+        value={index + Number(answers[index] !== undefined)}
       ></progress>
       <p className="font-semibold">
-        Question <span className="text-secondary font-bold">1</span> / 10
+        Question <span className="font-bold text-secondary">{index + 1}</span> /{" "}
+        {numQuestions}
       </p>
       <p className="text-right font-semibold">
-        Score <span className="text-secondary font-bold">10</span> / 100
+        Score <span className="font-bold text-secondary">{score}</span> /{" "}
+        {maxPossibleScore}
       </p>
     </div>
   );

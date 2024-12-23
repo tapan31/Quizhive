@@ -67,9 +67,72 @@
 }
  */
 
+import { useState } from "react";
+import { BASE_URL, quizCategories } from "../utils/constants";
+import { useQuizContext } from "../contexts/QuizContext";
+import { useNavigate } from "react-router-dom";
+
 export default function QuizForm() {
+  const [username, setUsername] = useState("John Doe");
+  const [numOfQuestions, setNumOfQuestions] = useState(10);
+  const [category, setCategory] = useState("any");
+  const [difficulty, setDifficulty] = useState("any");
+  const [type, setType] = useState("any");
+
+  const { dispatch } = useQuizContext();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Return if no username or number of questions
+    if (!username || !numOfQuestions) return;
+
+    // Create URL based on form fields
+    let url = `${BASE_URL}?amount=${numOfQuestions}`;
+    if (category !== "any") {
+      url += `&category=${category}`;
+    }
+    if (difficulty !== "any") {
+      url += `&difficulty=${difficulty}`;
+    }
+    if (type !== "any") {
+      url += `&type=${type}`;
+    }
+
+    console.log("URL: ", url);
+
+    try {
+      // Set Loading State
+      dispatch({ type: "fetchData" });
+      console.log("Fetching Data...");
+
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (data.response_code !== 0) {
+        // throw new Error("There was some error in fetching questions");
+        dispatch({
+          type: "dataFailed",
+          payload: "There was some error in fetching questions",
+        });
+      } else {
+        console.log("Received Data: ", data);
+
+        dispatch({ type: "start", payload: data.results });
+        // Navigate to Quiz Page
+        navigate("/quiz");
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
-    <form className="flex flex-col gap-7 rounded-xl border border-primary bg-neutral p-5 shadow-md md:py-7">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-7 rounded-xl border border-primary bg-neutral p-5 shadow-md md:py-7"
+    >
       {/* Username Field */}
       <div className="flex items-center justify-between gap-2">
         <label
@@ -83,6 +146,8 @@ export default function QuizForm() {
           className="w-1/2 rounded-2xl border-primary px-2 py-1 text-text outline-none focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
           type="text"
           placeholder="Enter username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
       </div>
 
@@ -99,6 +164,8 @@ export default function QuizForm() {
           className="w-1/2 rounded-2xl border-primary px-2 py-1 text-text outline-none focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
           type="text"
           placeholder="Enter number"
+          value={numOfQuestions}
+          onChange={(e) => setNumOfQuestions(Number(e.target.value))}
         />
       </div>
 
@@ -113,10 +180,15 @@ export default function QuizForm() {
         <select
           id="category"
           className="w-1/2 rounded-2xl border-primary px-2 py-1 text-text outline-none focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
         >
-          <option value="science">Science</option>
-          <option value="history">History</option>
-          <option value="art">Art</option>
+          <option value="any">Random Category</option>
+          {quizCategories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -131,10 +203,33 @@ export default function QuizForm() {
         <select
           id="difficulty"
           className="w-1/2 rounded-2xl border-primary px-2 py-1 text-text outline-none focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
+          value={difficulty}
+          onChange={(e) => setDifficulty(e.target.value)}
         >
+          <option value="any">Random Difficulty</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
+        </select>
+      </div>
+
+      {/* Question Type */}
+      <div className="flex items-center justify-between gap-2">
+        <label
+          className="w-1/2 text-lg font-semibold text-primary sm:text-xl"
+          htmlFor="type"
+        >
+          Type
+        </label>
+        <select
+          id="type"
+          className="w-1/2 rounded-2xl border-primary px-2 py-1 text-text outline-none focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+        >
+          <option value="any">Random Type</option>
+          <option value="multiple">Multiple Choice</option>
+          <option value="boolean">True/False</option>
         </select>
       </div>
 
