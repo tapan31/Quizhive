@@ -113,7 +113,7 @@ const ResultChart = ({ correctAnsCount, incorrectAnsCount }) => {
     index,
   }) => {
     const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) * 2; // Increased radius multiplier
+    const radius = innerRadius + (outerRadius - innerRadius) * 1.6; // Increased radius multiplier
 
     // Calculate base position
     let x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -172,8 +172,8 @@ const ResultChart = ({ correctAnsCount, incorrectAnsCount }) => {
             nameKey="name"
             cx="50%"
             cy="50%"
-            innerRadius="45%"
-            outerRadius="60%"
+            innerRadius="50%"
+            outerRadius="65%"
             fill="#8884d8"
             paddingAngle={data.length > 1 ? 2 : 0}
             label={renderLabel}

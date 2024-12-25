@@ -12,7 +12,9 @@ export default function ResultHeading() {
       ? "Excellent! 🎉 Keep up the great work!"
       : score >= 50
         ? "Good job! 👍 You can do even better."
-        : "Keep trying! 🌟 Practice makes perfect.";
+        : score >= 30
+          ? "Nice try! 💪 Keep going, you're improving!"
+          : "Ouch! 😬 You need more practice. Don't give up!";
 
   return (
     <div>

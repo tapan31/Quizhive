@@ -31,13 +31,15 @@ export default function OptionButton({ children, onClick }) {
     const isSelected = children === answers[index].value;
 
     if (isCorrect) {
-      return `bg-success cursor-not-allowed ${isSelected ? "translate-x-3" : ""}`;
+      return `bg-success text-neutral cursor-not-allowed ${isSelected ? "translate-x-3" : ""}`;
     }
 
-    if (isSelected) {
-      return "!bg-error cursor-not-allowed translate-x-3";
+    // Since the isCorrect case is already handled earlier, reaching the isSelected condition means the button is selected but not correct. This will work without !isCorrect as well because isCorrect has been checked earlier but add the check for code readability
+    if (isSelected && !isCorrect) {
+      return "!bg-error text-neutral cursor-not-allowed translate-x-3";
     }
 
+    // Neither correct Nor selected
     return "cursor-not-allowed";
   };
 

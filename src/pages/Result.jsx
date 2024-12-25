@@ -5,11 +5,9 @@ import ResultChart from "../components/ResultChart";
 import ResultHeading from "../components/ResultHeading";
 import ScoreCard from "../components/ScoreCard";
 import { useQuizContext } from "../contexts/QuizContext";
-import { useEffect } from "react";
 
 export default function Result() {
-  const { answers, status, secondsRemaining } = useQuizContext();
-  const navigate = useNavigate();
+  const { answers, status } = useQuizContext();
 
   if (status !== "finished") {
     console.log("Redirecting to home due to invalid status:", status);

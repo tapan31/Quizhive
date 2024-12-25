@@ -1,6 +1,10 @@
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useReducer } from "react";
-import { POINTS_PER_QUESTION, SECONDS_PER_QUESTION } from "../utils/constants";
+import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  CATEGORY_URL,
+  POINTS_PER_QUESTION,
+  SECONDS_PER_QUESTION,
+} from "../utils/constants";
 
 const QuizContext = createContext();
 
@@ -12,14 +16,26 @@ const initialState = {
   errorMessage: null,
   answers: [],
   secondsRemaining: null,
+  categories: [],
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case "fetchData":
+    case "fetchQuestions":
       return {
         ...state,
         status: "loading",
+      };
+    case "fetchCategories":
+      return {
+        ...state,
+        status: "loading",
+      };
+    case "categoriesReceived":
+      return {
+        ...state,
+        status: "idle",
+        categories: action.payload,
       };
     case "dataFailed":
       return {
@@ -41,7 +57,10 @@ function reducer(state, action) {
 
       const score = isCorrect ? state.score + POINTS_PER_QUESTION : state.score;
 
-      const answer = { value: action.payload, isCorrect };
+      const answer = {
+        value: action.payload,
+        isCorrect,
+      };
 
       return {
         ...state,
@@ -64,18 +83,16 @@ function reducer(state, action) {
       };
     }
     case "finish":
-      console.log("Finishing quiz, previous status:", state.status);
+      // console.log("Finishing quiz, previous status:", state.status);
       return {
         ...state,
         status: "finished",
-        // secondsRemaining: 0, // Ensuring timer is explicitly set to 0
       };
     case "updateTimer": {
       // Don't update if already at 0 or finished
       if (state.status === "finished" || state.secondsRemaining <= 0)
         return state;
 
-      // console.log("Updating timer:", state.secondsRemaining - 1);
       return {
         ...state,
         secondsRemaining: state.secondsRemaining - 1,
@@ -89,7 +106,28 @@ function reducer(state, action) {
   }
 }
 
+// Fetching categories on initialRender
 export default function QuizProvider({ children }) {
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        dispatch({ type: "fetchCategories" });
+
+        const res = await fetch(CATEGORY_URL);
+        const data = await res.json();
+
+        dispatch({
+          type: "categoriesReceived",
+          payload: data.trivia_categories,
+        });
+      } catch (error) {
+        console.log("Error fetching categories: ", error.message);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   const [
     {
       questions,
@@ -99,6 +137,7 @@ export default function QuizProvider({ children }) {
       index,
       answers,
       secondsRemaining,
+      categories,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -118,6 +157,7 @@ export default function QuizProvider({ children }) {
         numQuestions,
         maxPossibleScore,
         secondsRemaining,
+        categories,
         dispatch,
       }}
     >

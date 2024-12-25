@@ -67,10 +67,30 @@
 }
  */
 
-import { useState } from "react";
-import { BASE_URL, quizCategories } from "../utils/constants";
+import { useEffect, useState } from "react";
+import { BASE_URL, CATEGORY_URL, QUIZ_CATEGORIES } from "../utils/constants";
 import { useQuizContext } from "../contexts/QuizContext";
 import { useNavigate } from "react-router-dom";
+
+// Function to add an options field in each question and shuffle them
+const shuffleQuestions = (questions) => {
+  const result = questions.map((question) => {
+    let options = [];
+
+    if (question.type === "multiple") {
+      options = [question.correct_answer, ...question.incorrect_answers];
+      options.sort(() => Math.random() - 0.5);
+    } else if (question.type === "boolean") {
+      options = ["True", "False"];
+    }
+    return {
+      ...question,
+      options,
+    };
+  });
+
+  return result;
+};
 
 export default function QuizForm() {
   const [username, setUsername] = useState("John Doe");
@@ -79,7 +99,7 @@ export default function QuizForm() {
   const [difficulty, setDifficulty] = useState("any");
   const [type, setType] = useState("any");
 
-  const { dispatch } = useQuizContext();
+  const { dispatch, categories } = useQuizContext();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -104,7 +124,7 @@ export default function QuizForm() {
 
     try {
       // Set Loading State
-      dispatch({ type: "fetchData" });
+      dispatch({ type: "fetchQuestions" });
       console.log("Fetching Data...");
 
       const res = await fetch(url);
@@ -114,14 +134,18 @@ export default function QuizForm() {
         // throw new Error("There was some error in fetching questions");
         dispatch({
           type: "dataFailed",
-          payload: "There was some error in fetching questions",
+          // payload: "💥 There was some error in fetching questions",
+          payload: "Oops! 💥 Something went wrong. Try again!",
         });
       } else {
         console.log("Received Data: ", data);
 
-        dispatch({ type: "start", payload: data.results });
+        // Add an options field in each question object and shuffle the options
+        const shuffledQuestions = shuffleQuestions(data.results);
+
+        dispatch({ type: "start", payload: shuffledQuestions });
         // Navigate to Quiz Page
-        navigate("/quiz");
+        navigate("/quiz", { replace: true });
       }
     } catch (error) {
       console.error(error.message);
@@ -131,7 +155,7 @@ export default function QuizForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-7 rounded-xl border border-primary bg-neutral p-5 shadow-md md:py-7"
+      className="flex flex-col gap-5 rounded-xl border border-primary bg-neutral p-5 shadow-md md:py-7"
     >
       {/* Username Field */}
       <div className="flex items-center justify-between gap-2">
@@ -184,7 +208,7 @@ export default function QuizForm() {
           onChange={(e) => setCategory(e.target.value)}
         >
           <option value="any">Random Category</option>
-          {quizCategories.map((category) => (
+          {categories?.map((category) => (
             <option key={category.id} value={category.id}>
               {category.name}
             </option>

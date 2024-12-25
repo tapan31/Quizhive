@@ -4,10 +4,12 @@ import Quiz from "./pages/Quiz";
 import Result from "./pages/Result";
 import AppLayout from "./layouts/AppLayout";
 import QuizProvider from "./contexts/QuizContext";
+import Error from "./components/Error";
 
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",

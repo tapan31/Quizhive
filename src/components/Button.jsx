@@ -14,10 +14,12 @@ export default function NavigationButton({ children, styles = "", type }) {
       dispatch({ type: "nextQuestion" });
     } else if (type === "finish") {
       dispatch({ type: "finish" });
-      navigate("/result");
+      navigate("/result", { replace: true });
     } else if (type === "restart") {
       dispatch({ type: "restart" });
-      navigate("/");
+      navigate("/", { replace: true });
+    } else if (type === "error") {
+      navigate("/", { replace: true });
     }
   }
 
