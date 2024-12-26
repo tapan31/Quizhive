@@ -160,7 +160,7 @@ export default function QuizForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-light-neutral dark:bg-dark-neutral flex flex-col gap-5 rounded-xl border border-primary p-5 shadow-md transition-colors duration-200 md:py-7"
+      className="flex flex-col gap-5 rounded-xl border border-primary bg-light-neutral p-5 shadow-md transition-colors duration-200 md:py-7 dark:bg-dark-neutral"
     >
       {/* Username Field */}
       <div className="flex items-center justify-between gap-2">
@@ -172,7 +172,7 @@ export default function QuizForm() {
         </label>
         <input
           id="username"
-          className="text-light-text dark:text-dark-text w-1/2 rounded-2xl border-primary bg-inherit px-2 py-1 text-text outline-none transition-colors duration-200 focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
+          className="text-text w-1/2 rounded-2xl border-primary bg-inherit px-2 py-1 text-light-text outline-none transition-colors duration-200 focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2 dark:text-dark-text"
           type="text"
           placeholder="Enter username"
           value={username}
@@ -190,7 +190,7 @@ export default function QuizForm() {
         </label>
         <input
           id="questions"
-          className="text-light-text dark:text-dark-text w-1/2 rounded-2xl border-primary bg-inherit px-2 py-1 text-text outline-none transition-colors duration-200 focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
+          className="text-text w-1/2 rounded-2xl border-primary bg-inherit px-2 py-1 text-light-text outline-none transition-colors duration-200 focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2 dark:text-dark-text"
           type="text"
           placeholder="Enter number"
           value={numOfQuestions}
@@ -208,13 +208,17 @@ export default function QuizForm() {
         </label>
         <select
           id="category"
-          className="text-light-text dark:text-dark-text w-1/2 rounded-2xl border-primary bg-inherit px-2 py-1 text-text outline-none transition-colors duration-200 focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
+          className="text-text w-1/2 rounded-2xl border-primary px-2 py-1 text-light-text outline-none transition-colors duration-200 focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2 dark:bg-dark-neutral dark:text-dark-text"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
           <option value="any">Random Category</option>
           {categories?.map((category) => (
-            <option key={category.id} value={category.id}>
+            <option
+              className="bg-inherit"
+              key={category.id}
+              value={category.id}
+            >
               {category.name}
             </option>
           ))}
@@ -231,7 +235,7 @@ export default function QuizForm() {
         </label>
         <select
           id="difficulty"
-          className="text-light-text dark:text-dark-text w-1/2 rounded-2xl border-primary bg-inherit px-2 py-1 text-text outline-none transition-colors duration-200 focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
+          className="text-text w-1/2 rounded-2xl border-primary px-2 py-1 text-light-text outline-none transition-colors duration-200 focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2 dark:bg-dark-neutral dark:text-dark-text"
           value={difficulty}
           onChange={(e) => setDifficulty(e.target.value)}
         >
@@ -252,7 +256,7 @@ export default function QuizForm() {
         </label>
         <select
           id="type"
-          className="text-light-text dark:text-dark-text w-1/2 rounded-2xl border-primary bg-inherit px-2 py-1 text-text outline-none transition-colors duration-200 focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2"
+          className="text-text w-1/2 rounded-2xl border-primary px-2 py-1 text-light-text outline-none transition-colors duration-200 focus:border-primary focus:outline-1 focus:ring-1 focus:ring-inset focus:ring-primary sm:p-2 dark:bg-dark-neutral dark:text-dark-text"
           value={type}
           onChange={(e) => setType(e.target.value)}
         >
@@ -263,7 +267,7 @@ export default function QuizForm() {
       </div>
 
       {/* Submit Button */}
-      <button className="text-light-neutral mt-3 w-full rounded-full bg-primary p-2 text-xl font-bold hover:bg-secondary hover:shadow-[0_2px_5px_rgba(0,0,0,0.3)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+      <button className="mt-3 w-full rounded-full bg-primary p-2 text-xl font-bold text-light-neutral hover:bg-secondary hover:shadow-[0_2px_5px_rgba(0,0,0,0.3)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
         Start Quiz
       </button>
     </form>
