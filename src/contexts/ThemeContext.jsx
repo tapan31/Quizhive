@@ -4,9 +4,14 @@ import { createContext, useContext, useEffect, useState } from "react";
 const ThemeContext = createContext();
 
 export default function ThemeProvider({ children }) {
-  const [isDark, setIsDark] = useState(false);
+  // Initialize state based on the current class on html element
+  const [isDark, setIsDark] = useState(() => {
+    // This runs only once during initialization
+    const root = document.documentElement;
+    return root.classList.contains("dark");
+  });
 
-  useEffect(() => {
+  /* useEffect(() => {
     const root = document.documentElement; // Get the <html> element
 
     // Get System Preference
@@ -25,6 +30,22 @@ export default function ThemeProvider({ children }) {
       setIsDark(userPrefersDark);
       userPrefersDark && root.classList.add("dark");
     }
+  }, []); */
+
+  // This effect now only handles system preference changes
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const handleChange = (e) => {
+      // Only update if there's no saved preference
+      if (!localStorage.getItem("theme")) {
+        setIsDark(e.matches);
+        document.documentElement.classList.toggle("dark", e.matches);
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
   // Toggle Theme

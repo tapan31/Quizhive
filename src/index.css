@@ -14,8 +14,8 @@
 html {
   background-color: var(--background-color);
   transition:
-    background-color 200ms ease-in-out,
-    color 200ms ease-in-out;
+    /* background-color 200ms ease-in-out, */ color 200ms
+    ease-in-out;
 }
 
 button {
