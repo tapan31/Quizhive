@@ -8,7 +8,7 @@ export default function Question() {
   const decodedQuestion = decodeHtmlEntities(questions[index].question);
 
   return (
-    <h2 className="my-4 text-xl font-semibold text-text">
+    <h2 className="text-light-text dark:text-dark-text my-4 text-xl font-semibold">
       {/* What is the primary addictive substance found in tobacco? */}
       {/* {questions[index].question} */}
       {decodedQuestion}

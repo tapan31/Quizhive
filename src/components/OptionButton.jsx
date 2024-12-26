@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 
+import { memo, useMemo } from "react";
 import { useQuizContext } from "../contexts/QuizContext";
 import { decodeHtmlEntities } from "../utils/helpers";
 
@@ -12,38 +13,44 @@ import { decodeHtmlEntities } from "../utils/helpers";
   - getStyles() function is used for simplifying the styles logic.
 */
 
-export default function OptionButton({ children, onClick }) {
+function OptionButton({ children, onClick }) {
   const { answers, index, questions } = useQuizContext();
 
   const hasAnswered = answers[index] !== undefined;
 
   const base =
-    "rounded-full border bg-neutral border-primary px-4 py-2 text-left text-lg font-normal focus:border-none focus:outline-none focus:ring-1 focus:ring-primary focus:ring-offset-2";
+    "rounded-full text-light-text dark:text-dark-text border border-primary px-4 py-2 text-left text-lg font-[450] transition-all duration-200 ease-in-out focus:outline-none";
 
   const hover =
-    "duration-200 ease-in-out hover:translate-x-2 hover:shadow-md transition-transform";
+    "transition-transform duration-200 ease-in-out hover:translate-x-2 hover:shadow-md";
 
   const getStyles = () => {
-    if (!hasAnswered) return hover;
+    if (!hasAnswered) return `bg-light-neutral dark:bg-dark-neutral  ${hover}`;
 
     const isCorrect = children === questions[index].correct_answer;
 
     const isSelected = children === answers[index].value;
 
     if (isCorrect) {
-      return `bg-success text-neutral cursor-not-allowed ${isSelected ? "translate-x-3" : ""}`;
+      return `!bg-success !text-light-neutral cursor-not-allowed ${isSelected ? "translate-x-3" : ""}`;
     }
 
     // Since the isCorrect case is already handled earlier, reaching the isSelected condition means the button is selected but not correct. This will work without !isCorrect as well because isCorrect has been checked earlier but add the check for code readability
     if (isSelected && !isCorrect) {
-      return "!bg-error text-neutral cursor-not-allowed translate-x-3";
+      return "!bg-error !text-light-neutral cursor-not-allowed translate-x-3";
     }
 
     // Neither correct Nor selected
-    return "cursor-not-allowed";
+    return "cursor-not-allowed bg-light-neutral dark:bg-dark-neutral";
   };
 
   const styles = `${base} ${getStyles()}`;
+
+  // Memoize the decoded content
+  const decodedContent = useMemo(
+    () => decodeHtmlEntities(children),
+    [children],
+  );
 
   // console.log("Button Props:", { children, hasAnswered });
   // console.log("Correct Answer:", questions[index].correct_answer);
@@ -66,7 +73,9 @@ export default function OptionButton({ children, onClick }) {
 
   return (
     <button onClick={onClick} disabled={hasAnswered} className={styles}>
-      {decodeHtmlEntities(children)}
+      {decodedContent}
     </button>
   );
 }
+
+export default memo(OptionButton);

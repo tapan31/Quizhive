@@ -27,7 +27,7 @@ export default function ResultHeading() {
 
       <h3
         style={{ fontFamily: "DynaPuff, serif" }}
-        className="mb-3 rounded-md p-2 text-center text-lg font-medium text-text md:text-xl"
+        className="text-light-text dark:text-dark-text mb-3 rounded-md p-2 text-center text-lg font-medium transition-colors duration-200 md:text-xl"
       >
         You Scored{" "}
         <span className="font-bold tracking-wider text-primary">{score}</span>{" "}

@@ -4,10 +4,25 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: #fbf0e2;
+:root {
+  --background-color: #fbf0e2;
 }
 
+.dark {
+  --background-color: #1a202c;
+}
+html {
+  background-color: var(--background-color);
+  transition:
+    background-color 200ms ease-in-out,
+    color 200ms ease-in-out;
+}
+
+button {
+  /* transition:
+    background-color 250ms ease-in-out,
+    color 250ms ease-in-out; */
+}
 progress {
   -webkit-appearance: none;
   /* width: 100%;

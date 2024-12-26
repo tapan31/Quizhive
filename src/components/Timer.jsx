@@ -28,7 +28,7 @@ export default function Timer() {
 
   return (
     <div className="flex justify-end">
-      <span className="w-24 rounded-3xl bg-primary px-5 py-3 text-center font-medium tabular-nums tracking-wide text-neutral">
+      <span className="text-light-neutral w-24 rounded-3xl bg-primary px-5 py-3 text-center font-medium tabular-nums tracking-wide">
         {mins < 10 && "0"}
         {mins}:{secs < 10 && "0"}
         {secs}

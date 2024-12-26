@@ -5,6 +5,7 @@ import Result from "./pages/Result";
 import AppLayout from "./layouts/AppLayout";
 import QuizProvider from "./contexts/QuizContext";
 import Error from "./components/Error";
+import ThemeProvider from "./contexts/ThemeContext";
 
 const router = createBrowserRouter([
   {
@@ -29,9 +30,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <QuizProvider>
-      <RouterProvider router={router} />
-    </QuizProvider>
+    <ThemeProvider>
+      <QuizProvider>
+        <RouterProvider router={router} />
+      </QuizProvider>
+    </ThemeProvider>
   );
 }
 

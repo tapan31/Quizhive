@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { useThemeContext } from "../contexts/ThemeContext";
 
 // const COLORS = ["#65a30d", "#e11d48"]; // Green for correct, Red for incorrect
 const COLORS_MAP = {
@@ -78,6 +79,7 @@ const COLORS_MAP = {
 
 const ResultChart = ({ correctAnsCount, incorrectAnsCount }) => {
   const totalAnswers = correctAnsCount + incorrectAnsCount;
+  const { isDark } = useThemeContext();
 
   // Handle edge case where no questions are answered
   if (totalAnswers === 0) {
@@ -113,7 +115,7 @@ const ResultChart = ({ correctAnsCount, incorrectAnsCount }) => {
     index,
   }) => {
     const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) * 1.6; // Increased radius multiplier
+    const radius = innerRadius + (outerRadius - innerRadius) * 1.8; // Increased radius multiplier
 
     // Calculate base position
     let x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -141,7 +143,7 @@ const ResultChart = ({ correctAnsCount, incorrectAnsCount }) => {
         <text
           x={x}
           y={y - 8}
-          fill="black"
+          fill={isDark ? "white" : "black"}
           textAnchor={data.length === 1 ? "middle" : isRight ? "start" : "end"}
           fontSize="14px"
           fontWeight="medium"
@@ -151,7 +153,7 @@ const ResultChart = ({ correctAnsCount, incorrectAnsCount }) => {
         <text
           x={x}
           y={y + 8}
-          fill="black"
+          fill={isDark ? "white" : "black"}
           textAnchor={data.length === 1 ? "middle" : isRight ? "start" : "end"}
           fontSize="14px"
           fontWeight="bold"

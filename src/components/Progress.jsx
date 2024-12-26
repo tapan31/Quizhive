@@ -11,11 +11,11 @@ export default function Progress() {
         max={numQuestions}
         value={index + Number(answers[index] !== undefined)}
       ></progress>
-      <p className="font-semibold">
+      <p className="text-light-text dark:text-dark-text font-semibold">
         Question <span className="font-bold text-secondary">{index + 1}</span> /{" "}
         {numQuestions}
       </p>
-      <p className="text-right font-semibold">
+      <p className="text-light-text dark:text-dark-text text-right font-semibold">
         Score <span className="font-bold text-secondary">{score}</span> /{" "}
         {maxPossibleScore}
       </p>
