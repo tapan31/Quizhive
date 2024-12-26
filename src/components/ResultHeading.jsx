@@ -8,11 +8,11 @@ export default function ResultHeading() {
   const scorePercentage = Math.round((score / maxPossibleScore) * 100);
 
   const feedbackMessage =
-    score >= 80
+    scorePercentage >= 80
       ? "Excellent! 🎉 Keep up the great work!"
-      : score >= 50
+      : scorePercentage >= 50
         ? "Good job! 👍 You can do even better."
-        : score >= 30
+        : scorePercentage >= 30
           ? "Nice try! 💪 Keep going, you're improving!"
           : "Ouch! 😬 You need more practice. Don't give up!";
 
@@ -27,7 +27,7 @@ export default function ResultHeading() {
 
       <h3
         style={{ fontFamily: "DynaPuff, serif" }}
-        className="text-light-text dark:text-dark-text mb-3 rounded-md p-2 text-center text-lg font-medium transition-colors duration-200 md:text-xl"
+        className="mb-3 rounded-md p-2 text-center text-lg font-medium text-light-text transition-colors duration-200 md:text-xl dark:text-dark-text"
       >
         You Scored{" "}
         <span className="font-bold tracking-wider text-primary">{score}</span>{" "}

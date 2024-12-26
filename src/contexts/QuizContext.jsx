@@ -99,7 +99,7 @@ function reducer(state, action) {
       };
     }
     case "restart": {
-      return initialState;
+      return { ...initialState, categories: state.categories };
     }
     default:
       throw new Error("Unknown action type");
