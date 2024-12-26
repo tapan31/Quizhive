@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useQuizContext } from "../contexts/QuizContext";
 import OptionButton from "./OptionButton";
 
@@ -38,7 +37,6 @@ export default function Options() {
 
   function handleClick(chosenOption) {
     if (answers[index]) return;
-    console.log("Option Button Clicked: ", chosenOption);
 
     dispatch({
       type: "newAnswer",

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Button from "../components/Button";
 import ResultChart from "../components/ResultChart";
 import ResultHeading from "../components/ResultHeading";
@@ -10,7 +10,7 @@ export default function Result() {
   const { answers, status } = useQuizContext();
 
   if (status !== "finished") {
-    console.log("Redirecting to home due to invalid status:", status);
+    // console.log("Redirecting to home due to invalid status:", status);
     return <Navigate to="/" replace />;
   }
 

@@ -67,8 +67,8 @@
 }
  */
 
-import { useEffect, useState } from "react";
-import { BASE_URL, CATEGORY_URL, QUIZ_CATEGORIES } from "../utils/constants";
+import { useState } from "react";
+import { BASE_URL } from "../utils/constants";
 import { useQuizContext } from "../contexts/QuizContext";
 import { useNavigate } from "react-router-dom";
 
@@ -120,12 +120,12 @@ export default function QuizForm() {
       url += `&type=${type}`;
     }
 
-    console.log("URL: ", url);
+    // console.log("URL: ", url);
 
     try {
       // Set Loading State
       dispatch({ type: "fetchQuestions" });
-      console.log("Fetching Data...");
+      // console.log("Fetching Data...");
 
       const res = await fetch(url);
       const data = await res.json();
@@ -138,7 +138,7 @@ export default function QuizForm() {
           payload: "Oops! 💥 Something went wrong. Try again!",
         });
       } else {
-        console.log("Received Data: ", data);
+        // console.log("Received Data: ", data);
 
         // Add an options field in each question object and shuffle the options
         const shuffledQuestions = shuffleQuestions(data.results);
@@ -149,6 +149,11 @@ export default function QuizForm() {
       }
     } catch (error) {
       console.error(error.message);
+      dispatch({
+        type: "dataFailed",
+        // payload: "💥 There was some error in fetching questions",
+        payload: "Oops! 💥 Something went wrong. Try again!",
+      });
     }
   };
 

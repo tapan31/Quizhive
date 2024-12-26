@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import NavigationButton from "../components/Button";
 import Options from "../components/Options";
 import Progress from "../components/Progress";
@@ -7,17 +7,16 @@ import Timer from "../components/Timer";
 import { useQuizContext } from "../contexts/QuizContext";
 
 export default function Quiz() {
-  const { questions, status, index, answers, secondsRemaining } =
-    useQuizContext();
+  const { questions, status, index, answers } = useQuizContext();
 
   if (status !== "active" && status !== "finished") {
-    console.log("Navigate to Home");
+    // console.log("Navigate to Home");
 
     return <Navigate to="/" replace />;
   }
 
   if (status === "finished") {
-    console.log("Quiz finished, navigating to result");
+    // console.log("Quiz finished, navigating to result");
 
     return <Navigate to="/result" replace />;
   }
