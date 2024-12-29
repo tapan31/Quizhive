@@ -143,7 +143,7 @@ export default function QuizForm() {
         // Add an options field in each question object and shuffle the options
         const shuffledQuestions = shuffleQuestions(data.results);
 
-        dispatch({ type: "start", payload: shuffledQuestions });
+        dispatch({ type: "start", payload: { shuffledQuestions, username } });
         // Navigate to Quiz Page
         navigate("/quiz", { replace: true });
       }

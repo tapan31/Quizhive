@@ -7,11 +7,12 @@ export default function ScoreCard({ correctAnsCount, incorrectAnsCount }) {
 
   const totalTime = numQuestions * SECONDS_PER_QUESTION;
   const timeTaken = totalTime - secondsRemaining;
+
   const mins = Math.floor(timeTaken / 60);
   const secs = timeTaken % 60;
 
   return (
-    <div className="bg-light-neutral text-light-text dark:bg-dark-neutral dark:text-dark-text rounded-md border border-primary p-4 shadow-md transition-colors duration-200 sm:w-1/2 lg:py-6">
+    <div className="rounded-md border border-primary bg-light-neutral p-4 text-light-text shadow-md transition-colors duration-200 sm:w-1/2 lg:py-6 dark:bg-dark-neutral dark:text-dark-text">
       <h4 className="mb-3 text-center text-xl font-medium text-primary md:text-2xl">
         Performance Details
       </h4>

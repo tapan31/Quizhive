@@ -104,3 +104,13 @@ export const QUIZ_CATEGORIES = [
 export const POINTS_PER_QUESTION = 10;
 
 export const SECONDS_PER_QUESTION = 30;
+
+export const DATE_OPTIONS = {
+  day: "2-digit",
+  weekday: "short",
+  month: "short",
+  year: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+};

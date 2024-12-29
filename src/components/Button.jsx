@@ -3,7 +3,7 @@
 import { useNavigate } from "react-router-dom";
 import { useQuizContext } from "../contexts/QuizContext";
 
-export default function NavigationButton({ children, styles = "", type }) {
+export default function Button({ children, styles = "", type }) {
   const { dispatch } = useQuizContext();
   const navigate = useNavigate();
 
@@ -20,13 +20,17 @@ export default function NavigationButton({ children, styles = "", type }) {
       navigate("/", { replace: true });
     } else if (type === "error") {
       navigate("/", { replace: true });
+    } else if (type === "clearHistory") {
+      dispatch({ type: "clearHistory" });
+    } else if (type === "back") {
+      navigate(-1);
     }
   }
 
   return (
     <button
       onClick={handleClick}
-      className={`text-light-neutral rounded-full bg-primary px-5 py-2 font-medium hover:bg-secondary ${type === "prev" ? "float-left" : "float-right"} ${styles}`}
+      className={`rounded-full bg-primary px-5 py-2 font-medium text-light-neutral hover:bg-secondary ${type === "prev" ? "float-left" : "float-right"} ${styles}`}
     >
       {children}
     </button>

@@ -6,6 +6,7 @@ import AppLayout from "./layouts/AppLayout";
 import QuizProvider from "./contexts/QuizContext";
 import Error from "./components/Error";
 import ThemeProvider from "./contexts/ThemeContext";
+import QuizHistory from "./pages/QuizHistory";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/result",
         element: <Result />,
+      },
+      {
+        path: "/quiz-history",
+        element: <QuizHistory />,
       },
     ],
   },
