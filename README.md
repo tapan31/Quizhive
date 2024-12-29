@@ -29,6 +29,9 @@ Welcome to **QuizHive**, a dynamic and engaging quiz application designed to tes
 - **Restart Functionality**:
   - Start a new quiz at any time with the Restart button.
 
+- **Quiz History:**  
+  - Keep track of your past quizzes with the quiz history feature. View detailed statistics, including your score percentage, number of questions attempted, time taken, and the date of completion. Accessible from the main menu, this feature helps users review their performance and progress over time.
+
 - **Dynamic Theming**:
   - Toggle between light and dark themes based on your preference or system settings.
 
